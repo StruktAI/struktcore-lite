@@ -1,5 +1,11 @@
 # 🧠 StruktCore-Lite
 
+---
+
+![428220337-fd2d33e4-1b0c-4fa0-b705-22c06eabbecb](https://github.com/user-attachments/assets/3863a3cd-4b8d-4dd7-bac8-b442d72904e8)
+
+---
+
 Minimal. Terminal-native. Extendable.  
 **StruktCore-Lite** is a plugin-based AI assistant built for CLI environments — designed for developers who want *control*, not clutter.
 
