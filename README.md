@@ -1,5 +1,4 @@
 # 🧠 StruktCore-Lite
-
 ---
 
 ![428220337-fd2d33e4-1b0c-4fa0-b705-22c06eabbecb](https://github.com/user-attachments/assets/3863a3cd-4b8d-4dd7-bac8-b442d72904e8)
@@ -15,10 +14,13 @@ Minimal. Terminal-native. Extendable.
 
 - ✅ Ollama LLM integration (LLaMA3 by default)  
 - 🧩 Dynamic plugin system with fuzzy matching  
-- 📁 Memory logging: chat history, summaries, long-term  
-- 🧠 AI persona loaded from `memory/personality.txt` (configured via `assets/sc-l.yaml`)  
-- 💡 Simple YAML config in `assets/sc-l.yaml`  
-- 🔐 Local-first, runs entirely on your machine  
+- 📁 Memory system: logs, summaries, long-term retention  
+- 🧠 Configurable AI personality via `assets/sc-l.yaml`  
+- ⌨️ **Supports piped input** from stdin (e.g. `cat file | struktcl`)  
+- 💡 Easy YAML-based config  
+- 🔐 Fully local — no external API calls  
+- 🧪 Simple testing via `pytest`  
+- 🧱 Clean modular structure for extending core functionality  
 
 ---
 
@@ -32,43 +34,53 @@ source .venv/bin/activate   # On Windows: .venv\Scripts\activate
 pip install .
 ```
 
-> ✅ This installs a CLI tool called `struktcl`.
+✅ This installs a CLI tool called `struktcl`.
 
-> ℹ️ On first run, `struktcl` will create local `memory/` and `logs/` folders in your working directory
-> to store conversation logs, summaries, personality, and system activity.
+ℹ️ On first run, `struktcl` will create local `memory/` and `logs/` folders  
+to store logs, summaries, personality, and system activity.
 
 ---
 
 ### 🚀 Usage
 
-#### Launch interactive shell:
-
+#### 🔁 Launch shell mode:
 ```bash
 struktcl --shell
 ```
 
-#### Run a command directly:
-
+#### 💬 Run a direct AI command:
 ```bash
 struktcl "What's the capital of France?"
 ```
 
-#### Force plugin mode:
-
+#### 🧩 Force plugin mode:
 ```bash
-struktcl "run disk-check" --plugin
+struktcl "restart nginx" --plugin
+```
+
+#### 📥 Pipe into the assistant:
+```bash
+cat file.txt | struktcl "Summarise this:"
+```
+
+Or use default prompt:
+```bash
+echo "Some code" | struktcl
+```
+
+#### ♻️ Reset memory:
+```bash
+struktcl --reset
 ```
 
 ---
 
-### ⚙️ Config
+### ⚙️ Configuration
 
-Edit the YAML file at:
-```
-assets/sc-l.yaml
-```
+Edit the YAML file at: `assets/sc-l.yaml`
 
 Example:
+
 ```yaml
 version: "StruktCore-Lite v0.1.2"
 assistant_name: "SC-L"
@@ -77,6 +89,9 @@ personality: "Minimal, efficient, terminal-native AI assistant."
 model:
   model_name: "llama3"
   temperature: 0.7
+
+plugins:
+  fuzzy_threshold: 75
 
 shell:
   banner: true
@@ -88,63 +103,66 @@ shell:
 
 ### 🧩 Plugins
 
-> 🧩 Plugins are matched using:
-> - `aliases` from metadata (recommended)
-> - the plugin filename (e.g. `example_plugin`)
-> - `metadata['name']` if defined
+Plugins are matched using:
 
+- `aliases` from `metadata`
+- the plugin filename
+- `metadata["name"]` (if provided)
 
-All plugins live in the `plugins/` folder and must define a `run()` method and optional metadata:
+Each plugin lives in the `plugins/` folder and must define a `run()` function.
+
+Example:
 
 ```python
 # plugins/example_plugin.py
 
 metadata = {
-    "description": "Says hello.",
-    "aliases": ["hello", "greet"]
+    "name": "Restart NGINX",
+    "description": "Restarts the NGINX service.",
+    "aliases": ["restart nginx", "reload web server"]
 }
 
 def run(input_text=None):
-    print("Hello from plugin!")
+    print("Restarting nginx...")
 ```
 
 ---
 
 ### 🧠 Memory
 
-Memory logs are stored in the `memory/` folder:
+AI memory logs are stored in the `memory/` directory:
 
-- `chat_log.json` — raw history  
+- `chat_log.json` — raw conversation history  
 - `chat_summary.txt` — running summary  
-- `long_term_memory.txt` — condensed memory  
-- `lt_summary_history.txt` — archive of summaries  
+- `long_term_memory.txt` — retained memory  
+- `lt_summary_history.txt` — archived summaries
 
-Reset memory via:
-
+Reset memory:
 ```bash
 struktcl --reset
 ```
 
 ---
 
-### 🛠️ Dev Mode
+### 🛠️ Development
 
-To hack on the assistant:
+While editing the assistant core:
 
 ```bash
 struktcl --shell
 ```
 
-While modifying files inside:
+Work inside:
+
 ```
 struktcore_lite/core/
 ```
 
 ---
 
-### 🧪 Testing (optional)
+### 🧪 Testing
 
-If you've added tests:
+Run tests with:
 
 ```bash
 pytest tests/
@@ -154,7 +172,7 @@ pytest tests/
 
 ### 📄 License
 
-MIT — see [`LICENSE`](LICENSE) file.
+MIT — see [`LICENSE`](LICENSE)
 
 ---
 
@@ -162,12 +180,12 @@ MIT — see [`LICENSE`](LICENSE) file.
 
 - [ ] Plugin scheduling / crontab support  
 - [ ] Dynamic LLM switching  
-- [ ] REST API wrapper  
-- [ ] Plugin marketplace via Git sync  
+- [ ] REST API interface  
+- [ ] Plugin discovery via Git sync  
 
 ---
 
-### Built by Gus
+### 👤 Built by Gus
 
 > “Structure is survival.”  
-> If you like this project, fork it, drop a star, or plug in your own assistant modules.
+> If you like this project, fork it, star it, or drop in your own modules.
