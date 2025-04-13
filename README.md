@@ -19,7 +19,7 @@ Minimal. Terminal-native. Extendable.
 ### 📦 Installation
 
 ```bash
-git clone [https://github.com/StruktAI/struktcore-lite/struktcore-lite.git](https://github.com/StruktAI/struktcore-lite.git)
+git clone https://github.com/StruktAI/struktcore-lite/struktcore-lite.git
 cd struktcore-lite
 python -m venv .venv
 source .venv/bin/activate   # On Windows: .venv\Scripts\activate
