@@ -19,16 +19,16 @@ Minimal. Terminal-native. Extendable.
 ### 📦 Installation
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/struktcore-lite.git
+git clone [https://github.com/StruktAI/struktcore-lite/struktcore-lite.git](https://github.com/StruktAI/struktcore-lite.git)
 cd struktcore-lite
 python -m venv .venv
 source .venv/bin/activate   # On Windows: .venv\Scripts\activate
 pip install .
 ```
 
-> ✅ This installs a CLI tool called `StruktCL`.
+> ✅ This installs a CLI tool called `struktcl`.
 
-> ℹ️ On first run, `StruktCL` will create local `memory/` and `logs/` folders in your working directory
+> ℹ️ On first run, `struktcl` will create local `memory/` and `logs/` folders in your working directory
 > to store conversation logs, summaries, personality, and system activity.
 
 ---
@@ -38,19 +38,19 @@ pip install .
 #### Launch interactive shell:
 
 ```bash
-StruktCL --shell
+struktcl --shell
 ```
 
 #### Run a command directly:
 
 ```bash
-StruktCL "What's the capital of France?"
+struktcl "What's the capital of France?"
 ```
 
 #### Force plugin mode:
 
 ```bash
-StruktCL "run disk-check" --plugin
+struktcl "run disk-check" --plugin
 ```
 
 ---
@@ -116,7 +116,7 @@ Memory logs are stored in the `memory/` folder:
 Reset memory via:
 
 ```bash
-StruktCL --reset
+struktcl --reset
 ```
 
 ---
@@ -126,7 +126,7 @@ StruktCL --reset
 To hack on the assistant:
 
 ```bash
-StruktCL --shell
+struktcl --shell
 ```
 
 While modifying files inside:
