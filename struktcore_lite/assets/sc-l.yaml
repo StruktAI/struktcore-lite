@@ -1,0 +1,31 @@
+version: "StruktCore-Lite v0.1.2-alpha"
+assistant_name: "SC-L"
+personality: "Minimal, efficient, terminal-native AI assistant. Structured responses. No small talk."
+
+model:
+  provider: "ollama"
+  model_name: "llama3"
+  temperature: 0.7
+
+memory:
+  chat_log: "memory/chat_log.json"
+  summary: "memory/chat_summary.txt"
+  long_term: "memory/long_term_memory.txt"
+  lt_history: "memory/lt_summary_history.txt"
+  personality_file: "memory/personality.txt"
+
+plugins:
+  path: "plugins"
+  fuzzy_threshold: 85
+
+logging:
+  directory: "logs"
+  log_file: "system.log"
+  enabled: true
+
+shell:
+  banner: true
+  show_timestamp: false
+  show_model: true
+  show_personality: true
+

@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Project-specific
+memory/
+logs/
+*.log
+*.tmp
+
+# Editor junk
+.vscode/
+.idea/
+.DS_Store

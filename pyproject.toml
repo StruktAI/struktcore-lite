@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "struktcore-lite"
+version = "0.1.2-alpha"
+description = "A minimal, terminal-native AI assistant and plugin framework."
+authors = [
+  { name = "Gus", email = "you@example.com" }
+]
+license = { text = "MIT" }
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+  "langchain",
+  "langchain-ollama",
+  "rapidfuzz",
+  "pyyaml"
+]
+
+[project.scripts]
+struktcl = "struktcore_lite.main:main"
+
+[tool.setuptools.packages.find]
+include = ["struktcore_lite*"]
+
+[project.optional-dependencies]
+dev = ["pytest"]

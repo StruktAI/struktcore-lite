@@ -1,0 +1,14 @@
+include README.md
+include LICENSE
+include requirements.txt
+include pyproject.toml
+
+recursive-include struktcore_lite *.py
+include struktcore_lite/assets/sc-l.yaml
+
+exclude memory/*
+exclude logs/*
+exclude *.log
+exclude *.tmp
+
+global-exclude __pycache__ *.pyc
