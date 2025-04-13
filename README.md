@@ -1,4 +1,5 @@
 # 🧠 StruktCore-Lite
+
 ---
 
 ![428220337-fd2d33e4-1b0c-4fa0-b705-22c06eabbecb](https://github.com/user-attachments/assets/3863a3cd-4b8d-4dd7-bac8-b442d72904e8)
@@ -14,13 +15,13 @@ Minimal. Terminal-native. Extendable.
 
 - ✅ Ollama LLM integration (LLaMA3 by default)  
 - 🧩 Dynamic plugin system with fuzzy matching  
-- 📁 Memory system: logs, summaries, long-term retention  
-- 🧠 Configurable AI personality via `assets/sc-l.yaml`  
-- ⌨️ **Supports piped input** from stdin (e.g. `cat file | struktcl`)  
-- 💡 Easy YAML-based config  
-- 🔐 Fully local — no external API calls  
+- 📁 Memory logging: chat history, summaries, long-term  
+- 🧠 AI persona loaded from `memory/personality.txt` (configured via `assets/sc-l.yaml`)  
+- 💡 Simple YAML config in `assets/sc-l.yaml`  
+- 🔐 Local-first, runs entirely on your machine  
+- ⌨️ Supports piped input from stdin (`cat file.txt | struktcl`)  
 - 🧪 Simple testing via `pytest`  
-- 🧱 Clean modular structure for extending core functionality  
+- 🧱 Modular structure for clean extension
 
 ---
 
@@ -34,53 +35,55 @@ source .venv/bin/activate   # On Windows: .venv\Scripts\activate
 pip install .
 ```
 
-✅ This installs a CLI tool called `struktcl`.
+> ✅ This installs a CLI tool called `struktcl`.
 
-ℹ️ On first run, `struktcl` will create local `memory/` and `logs/` folders  
-to store logs, summaries, personality, and system activity.
+> ℹ️ On first run, `struktcl` will create local `memory/` and `logs/` folders in your working directory  
+> to store conversation logs, summaries, personality, and system activity.
 
 ---
 
 ### 🚀 Usage
 
-#### 🔁 Launch shell mode:
+#### Launch interactive shell:
 ```bash
 struktcl --shell
 ```
 
-#### 💬 Run a direct AI command:
+#### Run a command directly:
 ```bash
 struktcl "What's the capital of France?"
 ```
 
-#### 🧩 Force plugin mode:
+#### Force plugin mode:
 ```bash
-struktcl "restart nginx" --plugin
+struktcl "run disk-check" --plugin
 ```
 
-#### 📥 Pipe into the assistant:
+#### Pipe input into the AI:
 ```bash
 cat file.txt | struktcl "Summarise this:"
 ```
 
 Or use default prompt:
 ```bash
-echo "Some code" | struktcl
+echo "some text" | struktcl
 ```
 
-#### ♻️ Reset memory:
+#### Reset memory:
 ```bash
 struktcl --reset
 ```
 
 ---
 
-### ⚙️ Configuration
+### ⚙️ Config
 
-Edit the YAML file at: `assets/sc-l.yaml`
+Edit the YAML file at:
+```
+assets/sc-l.yaml
+```
 
 Example:
-
 ```yaml
 version: "StruktCore-Lite v0.1.2"
 assistant_name: "SC-L"
@@ -103,15 +106,12 @@ shell:
 
 ### 🧩 Plugins
 
-Plugins are matched using:
+> 🧩 Plugins are matched using:
+> - `aliases` from metadata (recommended)
+> - the plugin filename (e.g. `example_plugin`)
+> - `metadata['name']` if defined
 
-- `aliases` from `metadata`
-- the plugin filename
-- `metadata["name"]` (if provided)
-
-Each plugin lives in the `plugins/` folder and must define a `run()` function.
-
-Example:
+All plugins live in the `plugins/` folder and must define a `run()` method and optional metadata:
 
 ```python
 # plugins/example_plugin.py
@@ -130,39 +130,39 @@ def run(input_text=None):
 
 ### 🧠 Memory
 
-AI memory logs are stored in the `memory/` directory:
+Memory logs are stored in the `memory/` folder:
 
-- `chat_log.json` — raw conversation history  
+- `chat_log.json` — raw history  
 - `chat_summary.txt` — running summary  
-- `long_term_memory.txt` — retained memory  
-- `lt_summary_history.txt` — archived summaries
+- `long_term_memory.txt` — condensed memory  
+- `lt_summary_history.txt` — archive of summaries  
 
-Reset memory:
+Reset memory via:
+
 ```bash
 struktcl --reset
 ```
 
 ---
 
-### 🛠️ Development
+### 🛠️ Dev Mode
 
-While editing the assistant core:
+To hack on the assistant:
 
 ```bash
 struktcl --shell
 ```
 
-Work inside:
-
+While modifying files inside:
 ```
 struktcore_lite/core/
 ```
 
 ---
 
-### 🧪 Testing
+### 🧪 Testing (optional)
 
-Run tests with:
+If you've added tests:
 
 ```bash
 pytest tests/
@@ -172,7 +172,7 @@ pytest tests/
 
 ### 📄 License
 
-MIT — see [`LICENSE`](LICENSE)
+MIT — see [`LICENSE`](LICENSE) file.
 
 ---
 
@@ -180,12 +180,12 @@ MIT — see [`LICENSE`](LICENSE)
 
 - [ ] Plugin scheduling / crontab support  
 - [ ] Dynamic LLM switching  
-- [ ] REST API interface  
-- [ ] Plugin discovery via Git sync  
+- [ ] REST API wrapper  
+- [ ] Plugin marketplace via Git sync  
 
 ---
 
-### 👤 Built by Gus
+### Built by Gus
 
 > “Structure is survival.”  
-> If you like this project, fork it, star it, or drop in your own modules.
+> If you like this project, fork it, drop a star, or plug in your own assistant modules.
