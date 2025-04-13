@@ -161,7 +161,7 @@ MIT — see [`LICENSE`](LICENSE) file.
 
 ---
 
-### 🤖 Built with 💀 by Gus
+### Built by Gus
 
 > “Structure is survival.”  
 > If you like this project, fork it, drop a star, or plug in your own assistant modules.
